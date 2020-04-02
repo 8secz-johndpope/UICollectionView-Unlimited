@@ -20,6 +20,7 @@ class ViewController: UIViewController {
 
         var cycleView = CycleView(frame: CGRect(x: 0, y: naviH! + statusH, width: kScreenWidth, height: cyleViewH), images:imageNames)
         cycleView.backgroundColor = UIColor.red
+        cycleView.delegate = self
         return cycleView
     }()
     
@@ -36,3 +37,10 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController:CycleViewDelegate{
+    func cellDidSellected(_ cycleView: CycleView, ofIndex index: Int) {
+        print("selected \(index)")
+    }
+    
+    
+}
