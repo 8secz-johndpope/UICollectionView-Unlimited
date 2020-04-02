@@ -11,8 +11,13 @@ import UIKit
 let cycleViewCellID = "cycleCell"
 let kScreenWidth = UIScreen.main.bounds.size.width
 
+protocol CycleViewDelegate : AnyObject{
+    func cellDidSellected(_ cycleView:CycleView, ofIndex index:Int)
+}
+
 class CycleView: UIView {
     
+    weak var delegate:CycleViewDelegate?
     var timer:Timer?
     var interval:Double = 2
     var imageNames:[String] = [] // 用来循环展示的图片
@@ -110,6 +115,10 @@ extension CycleView:UICollectionViewDelegate,UICollectionViewDataSource{
         imageView.frame = cell.contentView.bounds
         cell.contentView.addSubview(imageView)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.cellDidSellected(self, ofIndex: indexPath.row)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
